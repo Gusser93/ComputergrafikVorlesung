@@ -144,20 +144,22 @@ y'&=-\frac{n\cdot y}{z}\\[-1.25em]
 \end{align*}
 \[ p' = \underset{\text{die Welt-x-Achse}}{\underset{\text{Drehung um}}{\underset{\uparrow}{\underset{\footnotesize\textcircled{2}}{R_{\vartheta, x}}}}} \cdot \underset{\text{die Welt-y-Achse}}{\underset{\text{Drehung um}}{\underset{\uparrow}{\underset{\footnotesize\textcircled{1}}{R_{\varphi, y}}}}}\cdot p \]
 
-
-\begin{tikzpicture}
+\begin{figure}[H]
+	\centering
+\begin{tikzpicture}[scale=1.5]
 \begin{axis}[axis lines = center, xlabel = x, ylabel=z, zlabel = y, xmax=2,ymax=2,zmax=2, xmin=-2, ymin=-2, zmin=-2, y post scale=-1, axis equal, ticks=none]
 \addplot3[draw=none] coordinates {(0,0,0)};
 \draw[
 decoration={markings, mark=at position 0.625 with {\arrow{<}}},
 postaction={decorate}
 ]
-(0,0,1) circle (0.5) node[anchor=north west] {$\varphi$};
+(0,0,1) circle (0.5) node[anchor=east, left=8] {$\varphi$};
 \draw[
 decoration={markings, mark=at position 0.625 with {\arrow{<}}},
 postaction={decorate}
-, rotate=0]
-(1,0,0) circle (0.5) node[anchor=north west] {$\gamma$};
+, rotate=90]
+(0,2,-2) circle (0.5) node[anchor=north, below=8] {$\gamma$};
 \end{axis}
 \end{tikzpicture}
+\end{figure}
 %Bild mit 3d koord sys und dre pfeilen um y und x achse 
