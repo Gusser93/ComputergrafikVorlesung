@@ -11,5 +11,11 @@
 \newcommand{\scalar}[2]{\left<#1,#2\right>}
 \newcommand{\vektor}[1]{\begin{pmatrix}#1\end{pmatrix}}
 
+\newcommand{\rightangle}[4][5pt]{%
+	\draw ($#3!#1!#2$)
+	--($ #3!2!($($#3!#1!#2$)!.5!($#3!#1!#4$)$) $)
+	--($#3!#1!#4$);
+}
+
 %\newcommand{\frontmatter}{\pagenumbering{Roman}}
 %\newcommand{\mainmatter}{\pagenumbering{arabic}}
