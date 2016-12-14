@@ -144,4 +144,41 @@ void main() {
 	
 	\end{tikzpicture}	
 \end{figure}
+\begin{figure}[H]
+	\begin{tikzpicture}[mark coordinate/.style={inner sep=0pt,outer sep=0pt,minimum size=3pt,
+		fill=black,circle}]
+	\def\R{2.5} % sphere radius
+	\def\angEl{35} % elevation angle
+	\def\angPhi{-90} % longitude of point P
+	\def\step{20}
+	\def\start{-20}
+	%\LongitudePlane[pzplane]{\angEl}{\angPhi-20}
+	%\path[pzplane] (10:\R) coordinate[mark coordinate] (B);
+	%\LatitudePlane[oben]{\angEl}{10}
+	%\LatitudePlane[unten]{\angEl}{-10}
+	\filldraw[ball color=white] (0,0) circle (\R);
+	\foreach \t in {-10,10} { \DrawLatitudeCircle[\R]{\t} }
+	\foreach \i in {0,...,2}{ 
+		\LongitudePlane[pzplane]{\angEl}{\angPhi+\start+\i*\step}
+		\path[pzplane] (10:\R) coordinate[mark coordinate] (\i a);
+		\path[pzplane] (-10:\R) coordinate[mark coordinate] (\i b);
+	}
+	\def\i{0}
+	\draw (\i a)--(\i b);
+	\foreach \d in {1,...,2} {
+		\pgfmathtruncatemacro{\b}{\d - 1}
+		\draw (\b b)--(\d a);
+		\draw (\d a)--(\d b);
+	}
+	
+%	\LongitudePlane[pzplane]{\angEl}{\angPhi}
+%	\path[pzplane] (10:\R) coordinate[mark coordinate] (C);
+%	\path[pzplane] (-10:\R) coordinate[mark coordinate] (D);
+%	\LongitudePlane[pzplane]{\angEl}{\angPhi+20}
+%	\path[pzplane] (10:\R) coordinate[mark coordinate] (E);
+%	\path[pzplane] (-10:\R) coordinate[mark coordinate] (F);
+%	\draw (A)--(B)--(C)--(D)--(E)--(F);
+	
+	\end{tikzpicture}
+\end{figure}
 %Kugle mit Dreiecken
