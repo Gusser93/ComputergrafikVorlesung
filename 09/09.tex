@@ -1,0 +1,65 @@
+\chapter{Volume Rendering mit 3d-Texturen}
+\section{DVT}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.47\textwidth}
+		\centering
+	\begin{tikzpicture}[scale=.35, every node/.style={inner sep=-2,outer sep=0}]
+	\draw (0,5) -- (-1,4);
+	\draw plot[smooth] coordinates {(-1,4)  (-3,3)  (-3,0)};
+	\draw plot [smooth] coordinates {(-3,0)  (-3.5,.5)  (-4,-2)   (-3.5,-3.5) (-3,-3)};
+	\draw plot [smooth] coordinates { (-3,-3) (-2,-5) (0,-5.5) };
+	
+	\draw[xscale=-1] (0,5) -- (-1,4);
+	\draw[xscale=-1] plot[smooth] coordinates {(-1,4)  (-3,3)  (-3,0)};
+	\draw[xscale=-1] plot [smooth] coordinates {(-3,0)  (-3.5,.5)  (-4,-2)   (-3.5,-3.5) (-3,-3)};
+	\draw[xscale=-1] plot [smooth] coordinates { (-3,-3) (-2,-5) (0,-5.5) };
+	\draw (0,0)++(0:15) arc (0:-200:15);
+	\draw (-130:15) node[scale=2, label={[label distance=10]$I_0$}, rotate=180] (I1) {\textasteriskcentered};
+	\draw (-190:15) node[scale=2] (I2) {\textasteriskcentered};
+	\draw (85:15) -- (5:15);
+	\draw (I1) -- (5:15) node[label={[label distance=10]$I_1$}] {}
+	(I1) -- (25:12.25) node[label={[label distance=10]$I_2$}] {}
+	(I1) -- (45:11.5) node[label={[label distance=10]$I_3$}] {}
+	(I1) -- (65:12.25) node[label={[label distance=10]$I_4$}] {}
+	(I1) -- (85:15) node[label={[label distance=10]$I_5$}] {};
+	
+	
+	\draw (85-60:15) -- (5-60:15);
+	\draw (I2) -- (5-60:15) node[label={[label distance=10]0:$I'_1$}] {}
+	(I2) -- (25-60:12.25) node[label={[label distance=10]0:$I'_2$}] {}
+	(I2) -- (45-60:11.5) node[label={[label distance=10]0:$I'_3$}] {}
+	(I2) -- (65-60:12.25) node[label={[label distance=10]0:$I'_4$}] {}
+	(I2) -- (85-60:15) node[label={[label distance=10]0:$I'_5$}] {};
+	\draw[Orange] (-4,5) grid (4,-6);
+	\end{tikzpicture}
+	\end{subfigure}
+	\begin{subfigure}{.47\textwidth}
+		\centering
+		\begin{tikzpicture}[scale=.5]
+		\draw (-2,-2) grid (2,2);
+		\end{tikzpicture}
+	\end{subfigure}
+\end{figure}
+\subsection{Lambert-Beer-Gesetz}
+\[ I^\text{out} = I^\text{in}\cdot e ^{-\mu\cdot d} \]
+\begin{center}
+	Schwächungskoeffizienten
+\end{center}
+%Bild vom Blatt
+\begin{align*}
+ I_S &= I_0 \cdot e^{ \sum_{\square(i,j) \cap S \neq \emptyset } \mu_{ij}\cdot d_{ij} } \\
+ \ln \frac{I_0}{I_S} &= \sum_{\square(i,j)\cap S \neq \emptyset }^{\mu_{ij} \cdot d_{ij} } \\
+ I&=\underset{\mathbb{R}^{360. 000. 000 \times 128. 000. 000}}{\underset{\rotatebox{-90}{$\in$}}{D}}\cdot\mu 
+\end{align*}
+\subsubsection{Inverses Problem}
+\paragraph{Gegeben:} Gemessene Intensitäten $I_S$ für alle Strahlen, die die Bildebene treffen für hinreichend viele Aufnahmerichtungen.
+\paragraph{Gesucht:} Schwächungskoeffizienten für alle Voxel des zu rekonstruierenden Volumens.
+%Bild bzgl. Farbe
+\[ c^\text{out} = c^\text{in}\cdot\left( 1-\alpha_i \right) + c_i\alpha_i \]
+\begin{description}
+	\item[$\alpha_i =$]  Deckkraft der Farbe $c_i$
+	\item[$1-\alpha_i \hat{=} $] Transparenz
+\end{description}
+% Stack Bild
+\[ c^\text{out} = \cdot \sum_{i=1}^{n}c_i\alpha_i\prod_{j=i+1}^{n}\left(  1-\alpha_j \right) \]
