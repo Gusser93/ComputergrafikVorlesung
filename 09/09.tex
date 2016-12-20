@@ -4,7 +4,7 @@
 	\centering
 	\begin{subfigure}{.47\textwidth}
 		\centering
-	\begin{tikzpicture}[scale=.35, every node/.style={inner sep=-2,outer sep=0}]
+	\begin{tikzpicture}[scale=.3, every node/.style={inner sep=-2,outer sep=0}]
 	\draw (0,5) -- (-1,4);
 	\draw plot[smooth] coordinates {(-1,4)  (-3,3)  (-3,0)};
 	\draw plot [smooth] coordinates {(-3,0)  (-3.5,.5)  (-4,-2)   (-3.5,-3.5) (-3,-3)};
@@ -14,30 +14,33 @@
 	\draw[xscale=-1] plot[smooth] coordinates {(-1,4)  (-3,3)  (-3,0)};
 	\draw[xscale=-1] plot [smooth] coordinates {(-3,0)  (-3.5,.5)  (-4,-2)   (-3.5,-3.5) (-3,-3)};
 	\draw[xscale=-1] plot [smooth] coordinates { (-3,-3) (-2,-5) (0,-5.5) };
-	\draw (0,0)++(0:15) arc (0:-200:15);
 	\draw (-130:15) node[scale=2, label={[label distance=10]$I_0$}, rotate=180] (I1) {\textasteriskcentered};
 	\draw (-190:15) node[scale=2] (I2) {\textasteriskcentered};
 	\draw (85:15) -- (5:15);
-	\draw (I1) -- (5:15) node[label={[label distance=10]$I_1$}] {}
-	(I1) -- (25:12.25) node[label={[label distance=10]$I_2$}] {}
-	(I1) -- (45:11.5) node[label={[label distance=10]$I_3$}] {}
-	(I1) -- (65:12.25) node[label={[label distance=10]$I_4$}] {}
-	(I1) -- (85:15) node[label={[label distance=10]$I_5$}] {};
+	\draw (I1) -- (5:15) node[rotate=-45, label={[label distance=10]$I_1$}] {\fcolorbox{black}{white}{$~~$}}
+	(I1) -- (25:12.25) node[rotate=-45, label={[label distance=10]$I_2$}] {\fcolorbox{black}{white}{$~~$}}
+	(I1) -- (45:11.5) node[rotate=-45, label={[label distance=10]$I_3$}] {\fcolorbox{black}{white}{$~~$}}
+	(I1) -- (65:12.25) node[rotate=-45, label={[label distance=10]$I_4$}] {\fcolorbox{black}{white}{$~~$}}
+	(I1) -- (85:15) node[rotate=-45, label={[label distance=10]$I_5$}] {\fcolorbox{black}{white}{$~~$}};
 	
 	
 	\draw (85-60:15) -- (5-60:15);
-	\draw (I2) -- (5-60:15) node[label={[label distance=10]0:$I'_1$}] {}
-	(I2) -- (25-60:12.25) node[label={[label distance=10]0:$I'_2$}] {}
-	(I2) -- (45-60:11.5) node[label={[label distance=10]0:$I'_3$}] {}
-	(I2) -- (65-60:12.25) node[label={[label distance=10]0:$I'_4$}] {}
-	(I2) -- (85-60:15) node[label={[label distance=10]0:$I'_5$}] {};
+	\draw (I2) -- (5-60:15) node[rotate=-105, label={[label distance=10]90:$I'_1$}] {\fcolorbox{black}{white}{$~~$}}
+	(I2) -- (25-60:12.25) node[rotate=-105, label={[label distance=10]90:$I'_2$}] {\fcolorbox{black}{white}{$~~$}}
+	(I2) -- (45-60:11.5) node[rotate=-105, label={[label distance=10]90:$I'_3$}] {\fcolorbox{black}{white}{$~~$}}
+	(I2) -- (65-60:12.25) node[rotate=-105, label={[label distance=10]90:$I'_4$}] {\fcolorbox{black}{white}{$~~$}}
+	(I2) -- (85-60:15) node[rotate=-105, label={[label distance=10]90:$I'_5$}] {\fcolorbox{black}{white}{$~~$}};
 	\draw[Orange] (-4,5) grid (4,-6);
+	\draw (0,0)++(0:15) arc (0:-200:15);
 	\end{tikzpicture}
 	\end{subfigure}
 	\begin{subfigure}{.47\textwidth}
 		\centering
-		\begin{tikzpicture}[scale=.5]
+		\begin{tikzpicture}[scale=.5, every node/.style={inner sep=-2,outer sep=0}]
 		\draw (-2,-2) grid (2,2);
+		\draw (60:5) -- (30:5) node[sloped, pos=.5, label={[label distance=10]$I_S$}] (IS) {\fcolorbox{black}{white}{$~~$}};
+		\draw[-latex] (-2.5,-2.2) node {\textasteriskcentered} -- (IS);
+		\draw[line width=3pt, line cap=round, dash pattern=on 0pt off 4\pgflinewidth] (-2,-1.73) -- (1.925,2);
 		\end{tikzpicture}
 	\end{subfigure}
 \end{figure}
