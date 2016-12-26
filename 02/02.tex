@@ -1,0 +1,66 @@
+%Vorlesung vom 16-10-25
+\chapter{Koordinatensysteme}
+\section{Normalisiertes Koordinatensystem}
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[scale = .5]
+		\draw (-8,-4.5) rectangle (8,4.5);
+		\draw (-.5,0) -- (.5,0)
+		(0,-.5) -- (0,.5);
+		\draw[latex-] (0,0) -- (.75,-.75) node (0) {};
+		\node[anchor=north west] at ($(0)-(.2,-.2)$) {$0$};
+		\draw[latex-] (8, 4.5) -- (8.75, 5.25) node (BH) {}; 
+		\node[anchor = south west] at ($(BH)-(.2,.2)$) {$\frac{\text{Breite}}{\text{Höhe}}$};
+		\node[anchor = west] at (9,0) {(0|0) in der Mitte};
+	\end{tikzpicture}
+\end{figure}
+\texttt{glViewport}: Ausschnitt wo gezeichnet wird.
+\section{Bildschirmkoordinaten $\leftrightharpoons$ Weltkoordinaten}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.47\textwidth}
+		
+		\begin{tikzpicture}[scale = .35]
+		\draw (-8,-4.5) rectangle (8,4.5);
+		\draw (-8, 4.5) rectangle (-7,3.5);
+		\draw (8, -4.5) rectangle (7,-3.5);
+		\node[label=135:{(0|0)}] at ($(-8, 4.5) -(-.5,.5)$) {};
+		\node[label=-45:{\tiny(breite|höhe)}] at ($(8, -4.5) +(-.5,.5)$) {};
+		\draw[latex-] (-8, -4.5) -- (-8,4.5) node[above, sloped, pos=.5] {y};
+		\draw[-latex] (-8, 4.5) -- (8,4.5) node[above, sloped, pos=.5] {x};
+		\end{tikzpicture}
+		\caption{Bildschirmkoordinaten}
+	\end{subfigure}
+$	\leftrightharpoons$
+	\begin{subfigure}{.47\textwidth}
+		
+		\begin{tikzpicture}[scale = .35]
+		\draw (-8,-4.5) rectangle (8,4.5);
+		\node[label=135:{$(-\frac{W}{h}|1)$}] at ($(-8, 4.5) -(-.5,.5)$) {};
+		\node[label=45:{$(\frac{W}{h}|1)$}] at ($(8, 4.5) -(.5,.5)$) {};
+		\node[label=-135:{$(-\frac{W}{h}|-1)$}] at ($(-8, -4.5) -(-.5,-.5)$) {};
+		\node[label=-45:{$(\frac{W}{h}|-1)$}] at ($(8, -4.5) -(.5,-.5)$) {};
+		\draw[-latex] (0, 0) -- (0,4.5) node[above, sloped, pos=.5] {y'};
+		\draw[-latex] (0, 0) -- (8,0) node[above, sloped, pos=.5] {x'};
+		\end{tikzpicture}
+		\caption{Weltkoordianten/Normalisiert}
+		\end{subfigure}
+		
+\end{figure}
+\begin{wrapfigure}[1]{l}{.3\textwidth}
+	\begin{tikzpicture}
+		\draw (-1,-1) rectangle (1,1);
+		\node[label=135:{$(-1|1)$}] at (-1, 1) {};
+		\node[label=45:{$(1|1)$}] at (1, 1) {};
+		\node[label=-135:{$(-1|-1)$}] at (-1, -1) {};
+		\node[label=-45:{$(1|-1)$}] at (1, -1) {};
+	\end{tikzpicture}
+\end{wrapfigure}
+
+$~$\newline
+
+	\begin{align*}
+	\Aboxed{	x' &= ax + b}\\
+	\Aboxed{	y' &= cy + d}
+	\end{align*}
+\pagebreak
