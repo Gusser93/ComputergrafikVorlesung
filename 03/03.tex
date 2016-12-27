@@ -42,10 +42,10 @@
 	\item ${}^EM_B$ beschreibt die Transformationsmatrix von Koordinaten aus System B in das System E
 	\item ${}^EM_B$ kann auch interpretiert werden, als die (starre) Transformation, die E in B überführt.
 \end{enumerate}
-\paragraph{z.B.}
-$~$\\
 \section{Transformationen}
 \subsection{Rotation}
+\paragraph{z.B.}
+$~$\\
 \begin{figure}[H]
 	\centering
 	\begin{tikzpicture}[scale=4]
@@ -65,5 +65,83 @@ $~$\\
 $\rightsquigarrow \hat{x}' = Mx$ mit $M = \left( \begin{array}{@{}c|c@{}} R&t\\ \hline 0&1\end{array} \right)$
 \[ x' = R(x + t) \]
 \subsection{Skalierung}
-\[ \underset{\hat{S} = \overset{\text{homogenisiert}}{\left( \begin{array}{@{}c|c@{}} S&0\\ \hline0&1 \end{array} \right)}}{\underbrace{S = \vektor{s_1&0\\0&s_2}}} ~~ x'=Sx = \vektor{x_1' = s_1x_1 \\ x_2' = S-2x_2} \]
+\[ \underset{\hat{S} = \overset{\text{homogenisiert}}{\left( \begin{array}{@{}c|c@{}} S&0\\ \hline0&1 \end{array} \right)}}{\underbrace{S = \vektor{s_1&0\\0&s_2}}} ~~ x'=Sx = \vektor{x_1' = s_1x_1 \\ x_2' = s_2x_2} \]
 mit $s_2 = -1$ Spiegelung um $x_1$ % Konnte ich nicht lesen
+\subsection{Translation}
+\paragraph{Homogen:}
+\[ \hat{T} = \left( \begin{array}{@{}cc|c@{}}
+1&0&t_1\\0&1&t_2\\ \hline 0&0&1
+\end{array} \right) \]
+\pagebreak
+\subsection{Hintereinanderausführung von Translation, Rotation und Skalierung}
+\paragraph{z.B.}
+\[ x''' = S(R(x+t)) \]
+\[ \rightsquigarrow ~x' = x+t;~~x''=Rx';~~x'''=Sx'' \]
+\[ x''' = \underset{\overleftarrow{\text{Leserichtung}}}{\hat{S}\hat{R}\hat{T}\hat{x}}~~~\text{alles homogenisiert} \]
+$\hat{}$ wird oft weggelassen, wenn klar.
+\begin{figure}[H]
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\begin{tikzpicture}[scale=2]
+		\draw[-latex] (0,0) -- (0,1) node[pos=.9, left] () {$\{E\}$};
+		\draw[-latex] (0,0) -- (1,0);
+		\node[fill, circle, inner sep = .5, label=${}^Ex$] at (.5,.5) {};
+		\end{tikzpicture}
+		\caption{Ausgang}
+	\end{subfigure}
+	$\leftrightarrow$
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\begin{tikzpicture}[scale=2]
+		\draw[-latex] (0,0) -- ($({-sin(25)}, {cos(25)})$) node[pos=.9,below left] () {$\{B\}$};
+		\draw[-latex] (0,0) -- ($({cos(25)}, {sin(25)})$);
+		%\node[fill, circle, inner sep = .5] at ($({.5*cos(25) - .5*sin(25)},{.5*sin(25) + .5*cos(25)})$) {};
+		\node[fill, circle, inner sep = .5, label=${}^Bx$] at (.5,.5) {};
+		\end{tikzpicture}
+		\caption{Rotation um $25^\circ$}
+	\end{subfigure}
+	$\leftrightarrow$
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\begin{tikzpicture}[scale=2]
+		\draw[-latex] (-.2,-.1) -- ($(-.2,-.1) + ({-sin(25)},{cos(25)})$) node[pos=.9, below left] () {$\{A\}$};
+		\draw[-latex] (-.2,-.1) -- ($(-.2,-.1) + ({cos(25)},{sin(25)})$);
+		\node[fill, circle, inner sep = .5, label=${}^Ax$] at (.5,.5) {};
+		\end{tikzpicture}
+		\caption{Translation um $\vektor{-0,2\\-0,1}$}
+	\end{subfigure}
+\end{figure}
+\[ {}^BM_A{}^Ax = {}^Bx \]
+\[ {}^Ex = {}^EM_B{}^Bx \]
+\[ \Rightarrow {}^Ex = \underset{{}^EM_A}{\underbrace{{}^EM_B{}^BM_A}}{}^Ax \]
+\paragraph{z.B.}
+\subparagraph{gegeben}
+\[ {}^EM_B~~~{}^EM_A \]
+\subparagraph{gesucht}
+\[ {}^BM_A \]
+
+\[ {}^EM_A = {}^EM_B{}^BM_A \]
+\[ \Rightarrow {}^BM_A = {}^EM_B^{-1}\cdot{}^EM_A \]
+\[ {}^EM_B^{-1} = {}^BM_E \]
+\section{Invertierung von $M$}
+Sei $M = \left( \begin{array}{@{}c|c@{}}
+R&t\\ \hline 0 & 1
+\end{array} \right)$ $ ~~~~~\underset{\overset{\uparrow}{\text{Drehung um }-\varphi}}{R^{-1}} = R^T$ u.a. auch, da Rotation $(R^TR = 1)$ % Richtig so ?
+\[ Mx = Rx + t = x' \]
+\[ \rightsquigarrow R^T (x'-t) = x \]
+\[ \rightsquigarrow R^Tx' - R^Tt \]
+\[ \rightsquigarrow M^{-1} = \left( \begin{array}{@{}c|c@{}}
+R^T&-R^Tt\\ \hline 0 & 1
+\end{array} \right) \]
+\section{Qt}
+\begin{lstlisting}[language=c++]
+QMatrix4x4 M;
+M.setToIdentity();		// $M = \mathds{1}$
+M.rotate($\varphi$, 0, 0, 1);	// Rotation um die z-Achse
+						// $M = M \cdot R$
+M.scale($s_1$, $s_2$);			// $M = M \cdot S$
+M.translate($t_1$, $t_2$);		// $M = M \cdot T$
+// $M = \underset{\overleftarrow{\text{Leserichtung für Transformation}}}{\mathds{1}\cdot R\cdot S \cdot T}$
+// Leter Befehl wird zuerst ausgeführt! LIFO!
+Mx'
+\end{lstlisting}
