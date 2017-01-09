@@ -51,6 +51,35 @@
 	\draw[current plane,dashed] (180-\angVis:1) arc (180-\angVis:\angVis:1);
 }
 
+\makeatletter
+
+\pgfkeys{/pgf/decoration/.cd,
+	start color/.store in =\startcolor,
+	end color/.store in   =\endcolor
+}
+
+\pgfdeclaredecoration{color change}{initial}{
+	\state{initial}[width=0pt, next state=line, persistent precomputation={%
+		\pgfmathdivide{50}{\pgfdecoratedpathlength}%
+		\let\increment=\pgfmathresult%
+		\def\x{0}%
+	}]{}
+	\state{line}[width=.5pt,   persistent postcomputation={%
+		\pgfmathadd@{\x}{\increment}%
+		\let\x=\pgfmathresult%
+	}]{%
+	\pgfsetarrows{-}%
+	\pgfpathmoveto{\pgfpointorigin}%
+	\pgfpathlineto{\pgfqpoint{.75pt}{0pt}}%
+	\pgfsetstrokecolor{\endcolor!\x!\startcolor}%
+	\pgfusepath{stroke}%
+}
+\state{final}{%
+	\pgfpathmoveto{\pgfpointorigin}%
+	\color{\endcolor!\x!\startcolor}%
+	\pgfusepath{stroke}% 
+}}
+\makeatother
 
 %\newcommand{\frontmatter}{\pagenumbering{Roman}}
 %\newcommand{\mainmatter}{\pagenumbering{arabic}}

@@ -14,13 +14,14 @@
 \end{tikzpicture}
 
 \begin{figure}[H]
+	\begin{subfigure}{.47\textwidth}
 	\centering
 	\begin{tikzpicture}
-\begin{axis}[clip = false, axis lines = none, xmin = 0, xmax = 2, ymin=0, ymax=2]
+\begin{axis}[clip = false, axis lines = none, xmin = 0, xmax = 2, ymin=0, ymax=2, axis equal]
 %\addplot {};
 \draw[step=.1] (axis cs:0,0) grid (axis cs: 2,2);
 \draw (axis cs:0,0) -- (axis cs:1.05,2) -- (axis cs:2,0.55) -- (axis cs:0,0);
-\draw[xstep = 10, ystep = 10, gray, very thin] (axis cs:0,0) grid (axis cs:2,2);
+%\draw[xstep = 10, ystep = 10, gray, very thin] (axis cs:0,0) grid (axis cs:2,2);
 \node[anchor=north] at (axis cs:0,0) {$V_0$};
 \node at (axis cs:0.45,0.45) (x) {x};
 \node at ($(x) - (0,1)$) (t) {interpolierte Farbe z.B. Mischung};
@@ -33,6 +34,31 @@
 \end{axis}
 \end{tikzpicture}
 \caption{Beispiel Raster}
+\end{subfigure}
+\begin{subfigure}{.47\textwidth}
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[clip = false, axis lines = none, xmin = 0, xmax = 2, ymin=0, ymax=2, axis equal]
+	%\addplot {};
+	\addplot[ patch, shader = interp, mesh/color input = explicit]
+	coordinates {
+		(0,0)[color=red] (1.05,2)[color=blue] (2,0.55)[color=green]};
+	\draw[step=.1] (axis cs:0,0) grid (axis cs: 2,2);
+	%\draw[xstep = 10, ystep = 10, gray, very thin] (axis cs:0,0) grid (axis cs:2,2);
+	\node[anchor=north] at (axis cs:0,0) {$V_0$};
+	\node[text=white] at (axis cs:0.45,0.45) (x) {x};
+	\node at ($(x) - (0,1)$) (t) {interpolierte Farbe z.B. Mischung};
+	\draw[-latex, decoration={color change, start color=black, end color = white}, decorate] (t)--(x);
+	\node[anchor=west] at (axis cs:2,0.55) {$V_1$};
+	\node[anchor=south] at (axis cs:1.05,2) {$V_2$};
+	\node[anchor=north] at (axis cs:0,-0.2) {r};
+	\node[anchor=west] at (axis cs:2.1,0.4) {g};
+	\node[anchor=south] at (axis cs:1.1,2.2) {b};
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Beispiel Mischung der Farben}
+\end{subfigure}
+
 \end{figure}
 Shader nimmt die Attribute von den Randpunkten und prozessiert diese auf die Pixel im inneren des Dreiecks.
 \pagebreak
