@@ -33,14 +33,14 @@ Sichtquader $\rightarrow$ Einheitsquader
 \node[anchor=south west] at (axis cs:1,-1,1) {(1,1,-1)};
 \end{axis}
 \end{tikzpicture}
+\vspace*{-1em}
 \begin{align*}
 x' \in [-1,1]\\
 y' \in [-1,1]\\
 z' \in [-1, 1]
 \end{align*}
-
 \begin{align*}
-x' = a\alpha \cdot x + \beta\\
+x' = \alpha \cdot x + \beta\\
 l \mapsto -1, ~ r\mapsto 1
 \end{align*}
 \begin{align*}
@@ -51,11 +51,13 @@ l \mapsto -1, ~ r\mapsto 1
 &&1 = \frac{2\cdot r}{r - l}+\beta\\
 &&\beta = 1 - \frac{2r}{r-l} = \frac{r-l-2r}{r-e} = -\frac{r+l}{r-l}
 \end{align*}
-\[ \underset{\text{NDS}}{\vektor{x'\\y'\\z'\\1}} = \underset{Q}{\underbrace{\vektor{\frac{2}{r-l}&0&0&\frac{r+l}{r-l}\\0&\frac{2}{t-b}&0&\frac{t+b}{t-b}\\0&0&\frac{-2}{f-n}&-\frac{f+n}{f-n}\\0&0&0&1   }}}\cdot\vektor{x\\y\\z\\1} \]
+Analog für $y'$ und $z'$
+
+\[ \underset{\text{NDS}}{\vektor{x'\\y'\\z'\\1}} = \underset{O}{\underbrace{\vektor{\frac{2}{r-l}&0&0&\frac{r+l}{r-l}\\0&\frac{2}{t-b}&0&\frac{t+b}{t-b}\\0&0&\frac{-2}{f-n}&-\frac{f+n}{f-n}\\0&0&0&1   }}}\cdot\vektor{x\\y\\z\\1} \]
 \[  z' = -\frac{2}{f-n}z - \frac{f+n}{f-n}  \]
 \[ z=n~~~z* = \frac{2n-(f+n)}{f-n} = \frac{n-f}{f-n} = -1 \]
 \[ -n\mapsto -1,~-f\mapsto 1\]
-\texttt{Qmatrix4x4.ortho(l,n,b,t,n,f);}
+\texttt{Qmatrix4x4.ortho(l,n,b,t,n,f);} liefert $O$
 \section{Perspektivische Projektion}
 %Bild 3
 \begin{tikzpicture}[scale=1.2]
@@ -68,9 +70,10 @@ l \mapsto -1, ~ r\mapsto 1
 \draw[double distance = 4, -{Triangle[open, length=8, width=8]}] (-2,0)--(-2,0.4);
 \draw[double distance = 4, -{Triangle[open, length=8, width=8]}] (-4,0)--(-4,0.8);
 \draw[<->] (-1,-0.2)--(0,-0.2) node [pos=.5, below, sloped] {n};
-\node[rotate=180,pin=sichtbar, anchor=north] at(axis cs:-2.5, -0.4) {};
+\node[rotate=180,pin={[red]sichtbar}, anchor=north] at(axis cs:-2.5, -0.4) {};
 \node[anchor=south] at (axis cs:-4,0.8) {(y,z)};
 \node[anchor=south west] at (axis cs:-1,0.2) {(y',-n)};
+\draw (0,0) node[rotate=180] {\varangle};
 %\node[anchor=north east] at (axis cs:-1,1,-1) {(-1,-1,1)};
 %\node[anchor=south west] at (axis cs:1,-1,1) {(1,1,-1)};
 \end{axis}
@@ -93,7 +96,10 @@ Sichtpyramide $\rightarrow$ Einheitswürfel
 \draw[dashed] (0,0,0)--(1,-3,5)--(5,-15,25);
 
 \draw (3,-9,6)--(12,-9,6)--(12,-9,15)--(3,-9,15)--(3,-9,6);
-
+\draw[red] (1, -3, 2) -- (4, -3, 2) -- (4, -3, 5) -- (1, -3, 5) -- (1, -3, 2) -- (3, -9, 6) -- (12, -9, 6) -- (12, -9, 15) -- (3, -9, 15) node[above, sloped, pos=.5]{Sichtpyramide} -- (3, -9, 6) 
+(4,-3,5) -- (12, -9, 15)
+(4,-3,2) -- (12, -9, 6)
+(1,-3,5) -- (3, -9, 15); 
 \end{axis}
 \end{tikzpicture}
 \end{figure}
@@ -103,9 +109,9 @@ y'&=-\frac{n\cdot y}{z}\\[-1.25em]
 [b,t]&\mapsto[-1,1]\\
 &y'' = \alpha\cdot y' + \beta\\
 &y'' = \frac{2}{t\cdot b}\cdot y' - \frac{t+b}{t-b}\\
-&\boxed{y'' = \frac{-2n}{t-b}\cdot \frac{y}{z} - \frac{t+b}{t-b} }
+&\boxed{y'' = \frac{2n}{t-b}\cdot \frac{y}{-z} - \frac{t+b}{t-b} }
 \end{align*}
-
+analog für $x''$, $z''$
 
 \begin{figure}[H]
 	\centering
@@ -126,6 +132,7 @@ y'&=-\frac{n\cdot y}{z}\\[-1.25em]
 \end{figure}
 
 \[ \underset{\text{homogene Koord.}}{\vektor{x\\y\\z\\w}}\overset{\text{Dehomogen-}}{\underset{\text{isierung}}{\longrightarrow}}\underset{\text{Kartesiche koord.}}{\vektor{\frac{x}{w}\\ \frac{y}{w}\\ \frac{z}{w}}} \]
+Homogenisierungsmatrix:
 \[ \vektor{x''\\ y''\\ z''\\ w''} = \vektor{\frac{2n}{r-l} & 0 & \frac{r+l}{r-l} & 0 \\0 & \frac{2n}{t-b} & -\frac{t+b}{t-b} & 0 \\ 0& 0&\alpha &\beta \\ 0&0&-1&0   } \cdot \vektor{x\\y\\z\\1} \]
 \[ y'' = \frac{2n}{t-b}\cdot y + \frac{t + b}{t- b}\cdot z \]
 \[ w'' = -z \]
@@ -146,7 +153,8 @@ y'&=-\frac{n\cdot y}{z}\\[-1.25em]
 \beta = \frac{-2nf}{f-n}& \\
 \alpha = \frac{\beta}{f} - 1 = -\frac{2n-(f-n)}{f-n} = \frac{f+n}{f-n}&
 \end{align*}
-
+\pagebreak
+\section{Objekte drehen aka Blickwinkel ändern}
 \[ p' = \underset{\text{die Welt-x-Achse}}{\underset{\text{Drehung um}}{\underset{\uparrow}{\underset{\footnotesize\textcircled{2}}{R_{\vartheta, x}}}}} \cdot \underset{\text{die Welt-y-Achse}}{\underset{\text{Drehung um}}{\underset{\uparrow}{\underset{\footnotesize\textcircled{1}}{R_{\varphi, y}}}}}\cdot p \]
 
 \begin{figure}[H]
@@ -196,4 +204,5 @@ postaction={decorate}
 	%\node[anchor=south west] at (axis cs:1,-1,1) {(1,1,-1)};
 	\end{axis}
 	\end{tikzpicture}
+	\caption{Streckenangaben sind beispielhaft}
 \end{figure}

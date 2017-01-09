@@ -84,6 +84,7 @@ Shader nimmt die Attribute von den Randpunkten und prozessiert diese auf die Pix
 \[ \vektor{a_1&b_1&c_1\\a_2&b_2&c_2\\1&1&1} \cdot \dddvec{\alpha}{\beta}{\gamma} = \dddvec{x_1}{x_2}{1} \]
 \[ x = \alpha\cdot a + \beta \cdot b + \gamma\cdot c \land  \alpha+\beta+\gamma = 1 \]
 \[ \Rightarrow f(x) = \alpha\cdot f(a) + \beta\cdot f(b) + \gamma \cdot f(c) \]
+(wird bei Qt durch das Keyword "`Varying"' ausgelöst)
 \section{Texturen}
 \subsection{Mipmap}
 \begin{figure}[H]
@@ -112,7 +113,6 @@ Shader nimmt die Attribute von den Randpunkten und prozessiert diese auf die Pix
 \[ S = \sum_{i=0}^{\infty} (\frac{1}{4})^i = \frac{1}{1 - \frac{1}{4}} = \frac{4}{3} \]
 
 \pagebreak
-
 \begin{figure}[H]
 \begin{tikzpicture}[scale=3]
 %\begin{axis}[clip = false, axis lines = none, ylabel={Bildschirmpixel}, xmin = 0, xmax=2, ymin = 0, ymax = 2]
@@ -131,7 +131,7 @@ Shader nimmt die Attribute von den Randpunkten und prozessiert diese auf die Pix
 %\end{axis}
 \end{tikzpicture}
 \end{figure}
-
+\vspace*{-1em}
 \begin{figure}[H]
 	\centering
 	\begin{tikzpicture}[scale=3]
@@ -151,7 +151,6 @@ Shader nimmt die Attribute von den Randpunkten und prozessiert diese auf die Pix
 	\end{tikzpicture}
 	\caption{bilineare Interpolation}
 \end{figure}
-
 \begin{figure}[H]
 \begin{tikzpicture}[scale = 3]
 \draw (0,0) rectangle (1,1);
@@ -177,3 +176,4 @@ In der Regel sind Texturkoordinaten in $[0,1]^2$, wenn größer wird sie periodi
 	\end{tikzpicture}
 	\caption{Maps Mipmapping}
 \end{figure}
+\paragraph{Denkanstoß:} Welche Kette von Transformationen braucht man um zu einem Fixpunkt zu zoomen?
