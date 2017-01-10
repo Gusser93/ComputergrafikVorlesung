@@ -133,3 +133,70 @@ Index Face Set\\
 \texttt{GL\_ELEMENT\_ARRAY\_BUFFER}
 \chapter{Beleuchtung}
 \section{Ein einfaches Beleuchtungsmodel}
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\draw (-1,0) -- (1,0);
+		\draw[-latex] (0,0) -- (0,1) node[above] {n};
+		\draw[-latex] (0,0) -- ($sin(30)*(1,0) + cos(30)*(0,1)$);
+		\draw[-latex] (0,0) -- ($sin(60)*(1,0) + cos(60)*(0,1)$);
+		\draw[-latex] (0,0) -- ($sin(30)*(-1,0) + cos(30)*(0,1)$);
+		\draw[-latex] (0,0) -- ($sin(60)*(-1,0) + cos(60)*(0,1)$);
+		\node[label={-90:$I_D$}] at (-2,1.5) (ID) {$\varangle$};
+		\draw[-latex] ($(ID) - (-.66,.5) - (-.2, .05)$) -- ($(ID) - (-.2,.05)$);
+		\node[label={0:$I_L$}] at (2, 1.5) (IL) {\textasteriskcentered};
+		\node[label={-30:$|n| = 1$}, outer sep = 20] at (2, 1.5) {};
+		\draw[-latex] ($(IL) - (.1,.1) + (0,0)$) -- ($(IL) - (.5,.5) + (0,0)$);
+		\draw[-latex] ($(IL) - (.1,.1) + (.2,-.2)$) -- ($(IL) - (.5,.5) + (.2,-.2)$);
+		\draw[-latex] ($(IL) - (.1,.1) + (-.2,.2)$) -- ($(IL) - (.5,.5) + (-.2,.2)$);
+	\end{tikzpicture}
+	\caption{Diffuse Reflexion}
+\end{figure}
+\subsection{Lambertsches Gesetz}
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\draw (-1,0) -- (1,0);
+		\node at (0,0) (O) {};
+		\draw[-latex] (0,0) -- (0,1) node[above] {$n$};
+		\draw[-latex] (0,0) -- ($sin(60)*(1,0) + cos(60)*(0,1)$) node[above] {$\ell$};
+		\node at ($sin(60)*(1,0) + cos(60)*(0,1)$) (l) {};
+		\node at (0,1) (n) {};
+		\pic[draw=black, angle eccentricity=1.2,angle radius=.5cm] {angle=l--O--n};
+		\draw (60:.3) node {$\varphi$};
+		\draw ($sin(60)*(2,0) + cos(60)*(0,2)$) node {\textasteriskcentered};
+	\end{tikzpicture}
+\end{figure}
+\[ I_O = I_L \cdot \ell^T\cdot n \]
+\[ |n| = |\ell| = 1 \]
+$\ell$ zeigt zur Lichtquelle.
+\[ \cos(\varphi) = \frac{\ell^T \cdot n}{|n||\ell|} \left( = \frac{<\ell,n>}{|n||\ell|} \right) \]
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[scale=2]
+		\draw (-1,0) -- (1.2,0);
+		\draw[latex-, dashed] (1,0) -- (1,1) node[right, pos=.5] {$n^T\ell$};
+		\draw[latex-] (0,0) -- (1,1) node[above] {$\ell$};
+		\draw[-latex, very thick] (1,0) -- (0,0);
+	\end{tikzpicture}
+\end{figure}
+\chapter{Einschübe}
+\section{Elipsoid}
+\[ (u,v) \rightarrow (x,y,z) = f \]
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\def\a{0}
+		\def\b{50}
+		\def\r{2}
+		\draw (0,0) arc (\a:\b:\r);
+		\draw (1,1) arc (\a:\b:\r);
+		\draw[latex-] (.5,.5) arc (\a:\b:\r);
+		\draw (0,0) -- (1,1);
+		\draw ($(0,0) - \r*cos(\a)*(1,0) + \r*cos(\b)*(1,0) - \r*sin(\a)*(0,1) + \r*sin(\b)*(0,1)$) -- ($(1,1) - \r*cos(\a)*(1,0) + \r*cos(\b)*(1,0) - \r*sin(\a)*(0,1) + \r*sin(\b)*(0,1)$);
+		\draw[latex-] ($ (.82,.82) - cos(\a)*(1,0) - sin(\a)*(0,1) $) -- ($ (1.82,1.82) - cos(\a)*(1,0) - sin(\a)*(0,1) $);
+	\end{tikzpicture}
+\end{figure}
+\[ \frac{\partial f(u,v)}{\partial u} \times \frac{\partial f(u,v)}{\partial v} = n \]
+Im Allgemeinen gilt $|n| \neq 1$
+\section{Tiefenbuffer}
