@@ -181,7 +181,7 @@ $\ell$ zeigt zur Lichtquelle.
 	\end{tikzpicture}
 \end{figure}
 \chapter{Einschübe}
-\section{Elipsoid}
+\section{Berechnung des Normalenvektors für parametrisierte Flächen}
 \[ (u,v) \rightarrow (x,y,z) = f \]
 \begin{figure}[H]
 	\centering
@@ -200,3 +200,16 @@ $\ell$ zeigt zur Lichtquelle.
 \[ \frac{\partial f(u,v)}{\partial u} \times \frac{\partial f(u,v)}{\partial v} = n \]
 Im Allgemeinen gilt $|n| \neq 1$
 \section{Tiefenbuffer}
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[scale=2]
+		\draw[fill=white] (-.45,-.3) -- (.4, -.2) -- (-.5, 1.75) -- (-1, 2.5) -- cycle;
+		\draw[fill=white] (0,0) -- (-2,1) -- (.5,.75) -- cycle;
+		\draw[fill=white] (-.55, 2.2) -- (-.8, 2.5) -- (-2, .5) -- (-1.75, .75) -- cycle;
+		\draw[white, fill=white] ($(-.5, 1.75)!.3!(-1, 2.5)$) -- ($(-.5, 1.75)!.79!(-1, 2.5)$) -- ($(-.45, -.3)!.92!(-1, 2.5)$) -- ($(-.45, -.3)!.75!(-1, 2.5)$) -- cycle;
+		\draw($(-.5, 1.75)!.3!(-1, 2.5)$) -- ($(-.5, 1.75)!.79!(-1, 2.5)$)
+		($(-.45, -.3)!.92!(-1, 2.5)$) -- ($(-.45, -.3)!.75!(-1, 2.5)$);
+		\draw[rotate around={-15:(-.125,.475)}] (-.25, .35) rectangle (0, .5);
+	\end{tikzpicture}
+\end{figure}
+\texttt{glEnable(GL\_DEPTH\_TEST)} - Tiefentest aktivieren.
