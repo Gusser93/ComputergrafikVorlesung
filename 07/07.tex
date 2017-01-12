@@ -169,7 +169,7 @@ R.rotate($\underset{\deg}{\underbrace{f}}, r$);
 		\begin{tikzpicture}[scale=2]
 			\node[inner sep = 0, outer sep = 0] at (1,1) (c) {};
 			\node[above] at (c) {c};
-			\draw[-latex] (0,0)--(1,1) node[above, pos=.5] {$r$};
+			\draw[-latex] (0,0)--(1,1) node[above, pos=.5] {$\vec{r}$};
 			\draw[-latex] (0,0)--($ (1,1) + (0,0)!.75!-90:(1,1) $) node[inner sep = 0, outer sep = 0] (p) {};
 			\draw (p)--(1,1);
 			\node[inner sep = 0, outer sep = 0] at (0,0) (0) {};
@@ -179,7 +179,7 @@ R.rotate($\underset{\deg}{\underbrace{f}}, r$);
 			\pic[draw=black, angle eccentricity=1.2,angle radius=10] {angle=0--c--p};
 			\node[fill = black, inner sep = .25pt, circle] at ($(c) + (-90:.1)$) {};
 			\node at ($(0) + (25:.25)$) {$\alpha$};
-			\draw [decorate,decoration={brace,amplitude=20}] (0) -- (c) node [sloped, pos=.5, above, yshift=20] {$k^\ell$}; % Keine Ahnung mehr, was hier stand
+			\draw [decorate,decoration={brace,amplitude=20}] (0) -- (c) node [sloped, pos=.5, above, yshift=20] {$\ell$}; % Keine Ahnung mehr, was hier stand
 		\end{tikzpicture}
 		\caption{$\ell=r^Tp$}
 	\end{subfigure}
@@ -219,3 +219,17 @@ R.rotate($\underset{\deg}{\underbrace{f}}, r$);
 \begin{align*}
 \left( rr^T \right)^T &= r^{T^T}r^T = rr^T&&\Rightarrow \text{symmetrisch}
 \end{align*}
+\begin{align*}
+&&r\times p &=Ap&&\\
+&&\vektor{r_1\\r_2\\r_3} \times \vektor{p_1\\p_2\\p_3} &= \vektor{r_2p_3-r_3p_2\\r_3p_1-r_1p_3\\r_1p_2-r_2p_1} = \vektor{0&-r_3&r_2\\r_3&0&-r_1\\-r_2&r_1&0}\vektor{p_1\\p_2\\p_3}
+\end{align*}
+$A=$ Axiator von $r$\\
+$r^x := A$
+\paragraph{Qt}
+
+\begin{align*}
+	R-e^{\varphi r^x}&&e^A = \sum_{n=0}^{\infty} \frac{1}{n!}\cdot A^n 
+	\end{align*}
+\[ r^{x^T} = -r^x \]
+\[ \text{sch}(A) = \sum_{n=0}^\infty \frac{1}{(2n+1)!}A^{2n+1}\cdot(-1)^n \]
+Alternative: Quaternionen
