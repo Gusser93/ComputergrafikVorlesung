@@ -1,0 +1,77 @@
+\chapter{Shadow-Mapping}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[scale=4]
+	
+		\coordinate (H1) at (-.3,.6);
+		\draw (H1) -- ($ (H1) + (.3,0) $) -- ($ (H1) + (.3,.2) $) -- ($ (H1) + (0,.2) $) -- (H1);
+		\draw ($ (H1) + (-.02,.17) $) -- ($ (H1) + (.05,.3) $) -- ($ (H1) + (.25,.3) $) -- ($ (H1) + (.32,.17) $);
+		\draw ($ (H1) + (.05,0) $) -- ($ (H1) + (.05,.1) $) -- ($ (H1) + (.09,.1) $) -- ($ (H1) + (.09,0) $);
+		\draw ($ (H1) + (.2, .075)  $) rectangle ($ (H1) + (.2, .075) + (.05, .05)  $);
+		\node at (-1.2,1) (I) {Idee};
+		\node[label=0:L, inner sep = 0, outer sep = 0] at (1.25,1.5) {\textasteriskcentered};
+		\coordinate (L) at (1.25, 1.5);
+		\node[circle, fill, inner sep = 1, label=0:F] at (-.15,.75) (F) {};
+		\node[rotate=90] at (0,0) (0) {$\varangle$};
+		\draw[orange] (0) -- (90-30:1.5) -- (90+30:1.5);
+		\draw[orange] (0) -- (90+30:1.5);
+		\draw[name path=line 1] (L) -- ($ (L) + (180+5:2) $) -- ($(L) + (-90-45:2)$) -- cycle;
+		\draw[name path = line 2] (0) -- (F);
+		\draw (L) -- (F) node[pos=.3, above] {$d$};
+		\draw[draw=none] (L) -- (F) coordinate[pos=.3] (d);
+		\draw ($ (d)!.5!-90:(F)$) -- ($ (d)!.5!90:(F)$) node[below, align=center] {depth buffer\\ $\hat{=}$ shadow map};
+		\path [name intersections={of=line 1 and line 2, by=E}];
+		\draw ($(E) -(.5,0)$) -- ($(E) +(.5,0)$);
+		\node[circle, fill, inner sep = 1] at (E) {};
+	\end{tikzpicture}
+\end{figure}
+
+\begin{enumerate}
+	\item Rendere die Szene aus der Sicht der Lichtquelle in eine Tiefenkarte (shadow map)
+	\item Rendere die Szene aus der Sicht der Kamera, wobei jedes Fragment $F$ überprüft, ob sein Abstand zur Lichtquelle $L$ größer ist als der Abstand des ersten Schnittpunktes des Strahles von $L$ zu $F$ mit der Szene. Diese Abstandsinformation findet sich in der Shadow map.
+\end{enumerate}
+\texttt{lookat(eye, center, up)}
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[scale=3]
+		\node[circle, fill, label=-90:$e$, inner sep = 1pt] at (0,0,0) (e) {};
+		\node[circle, fill, label = -85:$c$, inner sep = 1pt] at (-2,-1, -1) (c) {};
+		\draw[-latex] (0,0,0) -- ($ (0,0,0)!.5!(-2,-1,-1) $) node[pos=.75, above] {$v$};
+		\draw[-latex] (0,0,0) -- (0,1,0) node[pos=.75, right] {$u$};
+	\end{tikzpicture}
+\end{figure}
+\[ v = \frac{c - e}{|c-e|}, ~~ r = \frac{v\times u}{|v\times u|}, ~~ S = \frac{r \times v}{|r\times v|}  \]
+\begin{align*}
+&&{}^{\text{Welt}}x = &{}^{\text{Welt}}M_\text{Cam} \cdot {}^\text{Cam}&&\\
+	&&&~~~~\rotatebox{-90}{=}&&\\
+	&&\vektor{x\\y\\z\\w} &= \left(~
+	\begin{array}{|c|}%
+		\hline%
+		\multirow{3}{*}{$r$}\\ \\ \\%
+		\hline%
+		0\\%
+		\hline%
+		\end{array},
+		\begin{array}{|c|}%
+		\hline%
+		\multirow{3}{*}{$s$}\\ \\ \\%
+		\hline%
+		0\\%
+		\hline%
+		\end{array},
+		\begin{array}{|c|}%
+		\hline%
+		\multirow{3}{*}{$v$}\\ \\ \\%
+		\hline%
+		0\\%
+		\hline%
+		\end{array},
+		\begin{array}{|c|}%
+		\hline%
+		\multirow{3}{*}{$e$}\\ \\ \\%
+		\hline%
+		1\\%
+		\hline%
+		\end{array} ~\right)&&
+\end{align*}
