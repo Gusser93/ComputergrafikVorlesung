@@ -35,10 +35,20 @@
 \begin{figure}[H]
 	\centering
 	\begin{tikzpicture}[scale=3]
+		\crossproduct{-2}{-1}{-1}{0}{1}{0}
+		\length{\X}{\Y}{\Z}
 		\node[circle, fill, label=-90:$e$, inner sep = 1pt] at (0,0,0) (e) {};
 		\node[circle, fill, label = -85:$c$, inner sep = 1pt] at (-2,-1, -1) (c) {};
-		\draw[-latex] (0,0,0) -- ($ (0,0,0)!.5!(-2,-1,-1) $) node[pos=.75, above] {$v$};
-		\draw[-latex] (0,0,0) -- (0,1,0) node[pos=.75, right] {$u$};
+		\draw[-latex] (0,0,0) -- ($ (0,0,0)!.5!(-2,-1,-1) $) node[pos=.9, above] {$v$};
+		\draw[-latex] (0,0,0) -- (0,1,0) node[pos=.9, right] {$u$};
+		\draw[-latex] (0,0,0) -- ($(\X/\L,\Y/\L,\Z/\L )$) node[pos=.9, above] {$r$};
+		\pgfmathsetmacro\X1\X
+		\pgfmathsetmacro\Y1\Y
+		\pgfmathsetmacro\Z1\Z
+		\crossproduct{\X1}{\Y1}{\Z1}{-2}{-1}{-1}
+		\length{\X}{\Y}{\Z}
+		\draw[-latex] (0,0,0) -- ($(\X/\L,\Y/\L,\Z/\L )$) node[pos=.9, above] {$S$};
+		\draw[dashed] (0,0,0) -- (0,1,0) -- ($(\X/\L,\Y/\L+1,\Z/\L)$) -- ($(\X/\L,\Y/\L,\Z/\L)$) -- (0,0,0);
 	\end{tikzpicture}
 \end{figure}
 \[ v = \frac{c - e}{|c-e|}, ~~ r = \frac{v\times u}{|v\times u|}, ~~ S = \frac{r \times v}{|r\times v|}  \]
