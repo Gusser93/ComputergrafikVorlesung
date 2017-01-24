@@ -1,0 +1,43 @@
+\chapter{Szenegraph}
+Man kann sich einen Szenengraphen als Baum vorstellen (Es ist keiner, da er geschlossene Pfade beinhalten kann). Wir haben einen Wurzelknoten, welcher die Gesamtszene darstellt. Dieser hat Kindknoten, welche z.B. Teilszenen oder Gruppen darstellen. Diese können weitere Kindknoten haben, welche wiederum Teilszenen oder Eigenschaften beinhalten (im Beispiel mit Rechtecken dargestellt). Einzelne Szenen besitzen weiter auch eine Transformation (im Beispiel mit $T$ bezeichnet).
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[-latex, scale=2]
+		\node[circle, draw, label=0:$T_0$] {}
+			child {
+				node[draw, circle, label=0:$T_1$] (T1) {}
+				child{
+					node[draw, circle, label=0:$T_2$] (T2) {}
+					child {
+						node[rectangle, draw] {$M_3$}	
+					}	
+					child {
+						node[rectangle, draw, label=0:$\ni p$] {$M_4$}	
+					}
+				}
+				child{
+					node[rectangle, draw] {$M_1$}	
+				}
+				child{
+					node[rectangle, draw] (M2) {$M_2$}	
+				}
+		}
+		child{	
+				node[draw, circle] {}
+			}
+		child{
+				node[draw, circle, label=0:$T'$] (T) {}
+			}
+		child{
+			node[rectangle, draw] {$\text{Cam}_1$}	
+		}
+		child{
+			node[rectangle, draw] {$\text{Light}_1$}	
+		};
+		\draw (T2) .. controls ($(T2)!.25!(M2) + (0,-.5)$) and ($(T2)!.75!(M2) + (0,-.5)$) ..(M2); 
+		\draw[-] (T) -- ($(T) + (-.5,-1)$) -- ($(T) + (.5,-1)$) -- (T);
+		%\draw (T2) -- (T1); %Unsicher ob valides Beispiel
+	\end{tikzpicture}
+	\caption{Beispiel}
+\end{figure}
+\[ {}^0p=T_0\cdot T_1\cdot T_2 \cdot p \]
