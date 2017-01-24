@@ -19,6 +19,13 @@
 	--($#3!#1!#4$);
 }
 
+% 1 name 2 num
+\newcommand{\plotdistgrid}[2]{
+	\foreach \i in {0,...,#2}{
+		\addplot[smooth] file {./#1\i.dat};
+		\addplot[smooth] table[x index = {1}, y index = {0}] {./#1\i.dat};
+	}
+}
 
 \newcommand\pgfmathsinandcos[3]{%
 	\pgfmathsetmacro#1{sin(#3)}%

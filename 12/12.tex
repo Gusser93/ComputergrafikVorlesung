@@ -1,4 +1,5 @@
 \chapter{Szenegraph}
+\section{Einleitung}
 Man kann sich einen Szenengraphen als Baum vorstellen (Es ist keiner, da er geschlossene Pfade beinhalten kann). Wir haben einen Wurzelknoten, welcher die Gesamtszene darstellt. Dieser hat Kindknoten, welche z.B. Teilszenen oder Gruppen darstellen. Diese können weitere Kindknoten haben, welche wiederum Teilszenen oder Eigenschaften beinhalten (im Beispiel mit Rechtecken dargestellt). Einzelne Szenen besitzen weiter auch eine Transformation (im Beispiel mit $T$ bezeichnet).
 \begin{figure}[H]
 	\centering
@@ -41,3 +42,55 @@ Man kann sich einen Szenengraphen als Baum vorstellen (Es ist keiner, da er gesc
 	\caption{Beispiel}
 \end{figure}
 \[ {}^0p=T_0\cdot T_1\cdot T_2 \cdot p \]
+Um eine Szene zu rendern, kann der Graph rekursiv, an der Wurzel startend, traversiert werden.
+\pagebreak
+\section{VR}
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\draw (0,0) rectangle (2,1.5);
+		\draw ($(0,1.5)!.5!(2,1.5)$) -- ($(0,0)!.5!(2,0)$);
+		\node at ($(0,0)!.5!(1,1.5)$) {LE};
+		\node at ($(2,0)!.5!(1,1.5)$) {RE};
+	\end{tikzpicture}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\begin{tikzpicture}[scale=.5]% file
+		\begin{axis}[hide axis, clip=false]
+		\plotdistgrid{12/normal}{5}
+		\node[label={-135:$(-1,-1)$}] {};
+		\node[label={45:$(1,1)$}] {};
+		\draw[-latex] (0,0) -- (0,1.5) node[pos=.9, right] {$y$};
+		\draw[-latex] (0,0) -- (1.5,0) node[pos=.9, right] {$x$};
+		\end{axis}
+		\end{tikzpicture}
+		\caption{ohne Verzerrung}
+	\end{subfigure}
+	\hspace*{.5em}
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\begin{tikzpicture}[scale=.5]% file
+		\begin{axis}[hide axis]
+		\plotdistgrid{12/kissen}{5}
+		\end{axis}
+		\end{tikzpicture}
+		\caption{Kissenverzerrung}
+	\end{subfigure}
+	\begin{subfigure}{.3\textwidth}
+		\centering
+		\begin{tikzpicture}[scale=.5]% file
+		\begin{axis}[hide axis]
+		\plotdistgrid{12/tonne}{5}
+		\end{axis}
+		\end{tikzpicture}
+		\caption{Tonnenverzerrung}
+	\end{subfigure}
+\end{figure}
+\begin{align*}
+&&x'&=x\left(1+\alpha r^2+\beta r^4+\ldots\right)&&\\
+&&y'&=y\left(1+\alpha r^2+\beta r^4+\ldots \right)&&\\
+&&r &=\sqrt{x^2 + y^2}&&
+\end{align*}
