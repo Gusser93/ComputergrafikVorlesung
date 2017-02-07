@@ -26,6 +26,9 @@
 \usetikzlibrary{fadings,decorations.pathreplacing}
 \usepgflibrary{arrows.meta}
 
+\newcommand{\tikzmark}[1]{\tikz[overlay,remember picture,baseline=(#1.base)]
+	\node (#1) {\strut};}
+
 \makeatletter
 % the contents of \squarecorner were mostly stolen from pgfmoduleshapes.code.tex
 \def\squarecorner#1{
