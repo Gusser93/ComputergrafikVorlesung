@@ -4,11 +4,14 @@
 	\draw[-latex] (0,0,0) -- (0,0,1);
 	\draw[-latex] (0,0,0) -- (0,1,0);
 	\draw[-latex] (0,0,0) -- (1,0,0);
-	\node at (0.1,0,0) {$\varangle$};
-	\draw (2,-1,-1) -- (2,1,-1) -- (2,1,1) -- (2,-1,1) -- (2,-1,-1);
-	\draw (0,0,0) -- (4,0,0);
-	\draw (0,0,0) -- (4,1,0);
-	\draw (0,0,0) -- (4,.25,-1);
+	\node at (0.15,0,0) {\scalebox{2}{$\varangle$}};
+	\draw (2,-1,1) -- (2,-1,-1) -- (2,1,-1) -- (2,1,1) -- (2,-1,1) node[, pos=.5, left] {f};
+	\draw (0,0,0) -- (4,0,0) node[below] {c};
+	\draw (0,0,0) -- (4,1,0) node[above] {a};
+	\draw (0,0,0) -- (4,.25,-1) node[right] {b};
+	\draw (0,0,0) -- (2,0,0) node[below] {c'};
+	\draw (0,0,0) -- (2,.5,0) node[above] {a'};
+	\draw (0,0,0) -- (2,.125,-.5) node[right] {b'};
 	\draw (4,0,0) -- (4,1,0) -- (4,.25,-1) -- (4,0,0);
 	\draw (2,0,0) -- (2,.5,0) -- (2,.125,-.5) -- (2,0,0);
 	\end{tikzpicture}
@@ -31,9 +34,9 @@ c&=&\gamma\cdot\hat{c}
 		\coordinate (0) at (0,0);
 		\coordinate (a) at ($(0,0)!1!35:(1,0)$);
 		\coordinate (b) at ($(0,0)!1!5:(1,0)$);
-		\draw[-latex] (0)--(a);
-		\draw[-latex] (0)--(b);
-		\pic[draw=black, angle eccentricity=1.2,angle radius=.5cm] {angle=b--0--a};
+		\draw[-latex] (0)--(a) node[above] {$\hat{a}$};
+		\draw[-latex] (0)--(b) node[right] {$\hat{b}$};
+		\pic["$\varphi$",draw=black, angle eccentricity=1.2,angle radius=.5cm] {angle=b--0--a};
 	\end{tikzpicture}
 	\caption*{$\cos \varphi = \hat{a}^T\cdot\hat{b}$}
 \end{figure}
